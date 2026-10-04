@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: gameproject
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gameproject
+    username: postgres
+    password: mia0zA11_  
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/001-first-migration.yaml
+    

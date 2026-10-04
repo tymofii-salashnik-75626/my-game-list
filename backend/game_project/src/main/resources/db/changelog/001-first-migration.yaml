@@ -1,0 +1,167 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tables
+      author: dayaneemercy
+      changes:
+        - createTable:
+            tableName: game
+            remarks: game list
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Primary key
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  remarks: games name
+                  constraints:
+                    nullable: false
+              - column:
+                  name: game_year
+                  type: int
+                  remarks: game release date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: int
+                  remarks: game rating
+              - column:
+                  name: cover
+                  type: bytea
+                  remarks: game cover
+
+        - createTable:
+            tableName: genre
+            remarks: genre list
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Primary key
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  remarks: genre name
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: game_genre
+            remarks: link table between game and genre tables
+            columns:
+              - column:
+                  name: game_id
+                  type: bigint
+                  remarks: link to game
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_game_genre_game
+                    referencedTableName: game
+                    referencedColumnNames: id
+              - column:
+                  name: genre_id
+                  type: bigint
+                  remarks: link to genre
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_game_genre_genre
+                    referencedTableName: genre
+                    referencedColumnNames: id
+            constraints:
+              primaryKey: true
+              primaryKeyName: pk_game_genre
+              columnNames: game_id, genre_id
+
+        - createTable:
+            tableName: developer
+            remarks: developers list
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Primary key
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  remarks: studio name
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: game_developer
+            remarks: link between games and developers
+            columns:
+              - column:
+                  name: game_id
+                  type: bigint
+                  remarks: link to game
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_game_developer_game
+                    referencedTableName: game
+                    referencedColumnNames: id
+              - column:
+                  name: developer_id
+                  type: bigint
+                  remarks: link to developer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_game_developer_developer
+                    referencedTableName: developer
+                    referencedColumnNames: id
+            constraints:
+              primaryKey: true
+              primaryKeyName: pk_game_developer
+              columnNames: game_id, developer_id
+
+        - createTable:
+            tableName: review
+            remarks: game reviews
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: Primary key
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: game_id
+                  type: bigint
+                  remarks: link to game
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_review_game
+                    referencedTableName: game
+                    referencedColumnNames: id
+              - column:
+                  name: author_name
+                  type: varchar(100)
+                  remarks: reviewer nickname
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grade
+                  type: int
+                  remarks: game grade 
+                  constraints:
+                    nullable: false
+              - column:
+                  name: review_text
+                  type: text
+                  remarks: some review text
