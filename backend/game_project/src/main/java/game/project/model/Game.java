@@ -12,21 +12,26 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
-import lombok.Getter;
-import lombok.Setter;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "game")
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @ToString.Include
     private Long id;
 
     @Column(name = "name", nullable = false)
+    @ToString.Include
     private String name;
 
     @Column(name = "game_year", nullable = false)
@@ -35,7 +40,6 @@ public class Game {
     @Column(name = "rating")
     private Integer rating;
 
-    @Lob
     @Column(name = "cover")
     private byte[] cover;    
 
